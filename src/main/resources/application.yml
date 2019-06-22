@@ -6,6 +6,8 @@ spring:
     password: 123456
   jpa:
     show-sql: true
+  jackson:
+    default-property-inclusion: non_null
 server:
   context-path: /sell
 #loggin:
@@ -14,3 +16,7 @@ server:
 ##  path: /var/log/tomcat/
 #  file: /var/log/tomcat/sell.log
 #  level: debug
+
+wechat:
+  mpAppId: wxed04fa7008825a6a
+  mpAppSecret: c8fdadd4a0d7b0c2530bd80242e30a36

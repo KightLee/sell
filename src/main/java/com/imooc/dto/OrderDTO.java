@@ -1,8 +1,11 @@
 package com.imooc.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.dataobject.OrderDetail;
 import com.imooc.enums.OrderStatusEnum;
 import com.imooc.enums.PayStatusEnum;
+import com.imooc.util.serializer.DateToLongSerializer;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -23,7 +26,9 @@ public class OrderDTO {
     private Integer orderStatus;
     private BigDecimal orderAmount;
     private Integer payStatus;
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date createTime;
+    @JsonSerialize(using = DateToLongSerializer.class)
     private Date updateTime;
     private List<OrderDetail> orderDetails;
 }

@@ -14,7 +14,7 @@ import com.imooc.respository.OrderMasterRespository;
 import com.imooc.service.OrderService;
 import com.imooc.service.ProductService;
 import com.imooc.util.KeyUtil;
-import com.imooc.util.OrderMasterOrderDTOConverter;
+import com.imooc.converter.OrderMasterOrderDTOConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,8 +65,8 @@ public class OrderServiceImpl implements OrderService {
         // 写入订单数据库
         OrderMaster orderMaster = new OrderMaster();
         // OrderDTO带了个null的id
+        orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO, orderMaster);
-        orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
