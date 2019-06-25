@@ -19,7 +19,7 @@ import java.net.URLEncoder;
  * create by lixing on 2019/6/21 14:35
  */
 @Controller
-@RequestMapping("weixin")
+@RequestMapping("/weixin")
 @Slf4j
 public class WechatController {
     @Autowired
@@ -33,7 +33,7 @@ public class WechatController {
         // 这个redirectUrl帮忙设置open.weixin传入自己回调的地址
         String redirectUrl = null;
         try {
-            redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAUTH2_SCOPE_BASE, URLEncoder.encode(returnUrl, "UTF-8"));
+            redirectUrl = wxMpService.oauth2buildAuthorizationUrl(url, WxConsts.OAUTH2_SCOPE_USER_INFO, URLEncoder.encode(returnUrl, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             log.error("编码错误, 错误码为{}",e);
         }
@@ -50,6 +50,6 @@ public class WechatController {
             throw new SellException(ResultEnum.WECHAT_MP_ERROR);
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
-        return "redirect:" + returnUrl;
+        return "redirect:" + returnUrl + "?openid=" + openId;
     }
 }
